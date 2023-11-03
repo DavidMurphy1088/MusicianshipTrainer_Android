@@ -2,10 +2,14 @@ package com.musicmaster.musicianshiptrainer.views
 
 import android.provider.ContactsContract
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,14 +24,14 @@ import com.musicmaster.musicianshiptrainer.models.TimeSlice
 fun TimeSliceView(timeSlice: TimeSlice, staff: Staff, lineSpacing: Double) {
     Column (
         modifier = Modifier
-            .fillMaxHeight() // Make the Column fill the max height of the parent
-            .border(width = 2.dp, color = Color.Red) // Add a red border to the Column
-            .padding(horizontal = 50.dp) // Add horizontal padding inside the Column
+            .fillMaxHeight()
+            .width(150.dp)
+            .border(4.dp, Color.Green),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         timeSlice.entries.forEach { entry ->
             Box(
-//                modifier = Modifier
-//                    .border(2.dp, Color.Green)
             ) {
                 if (entry is Note) {
                     NoteView(note = entry, staff = staff, lineSpacing = lineSpacing, false)

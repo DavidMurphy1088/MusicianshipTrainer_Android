@@ -62,8 +62,9 @@ class Score(
         totalStaffLineCount = linesPerStaff + (2*ledgerLineCount)
     }
 
-    fun createTimeSlice(sequence: Int): TimeSlice {
+    fun createTimeSlice(): TimeSlice {
         val timeSlice = TimeSlice(this)
+        timeSlice.sequence = scoreEntries.size
         scoreEntries.add(timeSlice)
         return timeSlice
     }

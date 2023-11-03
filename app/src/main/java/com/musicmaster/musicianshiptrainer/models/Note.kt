@@ -48,6 +48,22 @@ class Note(
 
     fun setNotePlacementAndAccidental(staff:Staff, barAlreadyHasNote:Boolean) {
         val newPlacement = NoteStaffPlacement(offsetFromStaffMidline = 1, accidental = null)
+        if (midiNumber > 1) {
+            newPlacement.offsetFromStaffMidline = 1
+        }
+        else {
+            newPlacement.offsetFromStaffMidline = 0
+        }
+        var offset = 0
+        when (midiNumber) {
+            67 -> offset = -2
+            69 -> offset = -1
+            71 -> offset = 0
+            72 -> offset = 1
+            74 -> offset = 3
+            else -> offset = 0
+        }
+        newPlacement.offsetFromStaffMidline = offset
         noteStaffPlacements = noteStaffPlacements.plus(newPlacement)
     }
 }

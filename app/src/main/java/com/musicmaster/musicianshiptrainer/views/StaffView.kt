@@ -24,9 +24,7 @@ fun StaffView(score: Score, staff: Staff) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            //.align(Alignment.Center)
             .size(height.dp)
-
     ) {
         Row(
             //modifier = Modifier.align(Alignment.Center)
@@ -34,6 +32,8 @@ fun StaffView(score: Score, staff: Staff) {
             CleffView(staff, score.staffLayoutSize)
             ScoreEntriesView(score, staff)
         }
+
+        ///Draw the staff lines
         Column(
             modifier = Modifier.align(Alignment.Center)
         ) {

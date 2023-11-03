@@ -12,7 +12,6 @@ import com.musicmaster.musicianshiptrainer.models.Score
 @Composable
 fun ScoreView(score: Score) {
     Column {
-        Text(text = "___SCORE____")
         Column {
             score.staffs.forEachIndexed { index, staff ->
                 val s = score.staffLayoutSize.lineSpacing * 5

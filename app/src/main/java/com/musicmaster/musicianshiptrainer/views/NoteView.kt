@@ -30,17 +30,15 @@ fun NoteView(note: Note, staff: Staff, lineSpacing:Double, inError:Boolean) { //
     val offsetFromStaffMiddle = placement.offsetFromStaffMidline
     val accidental = placement.accidental
     //val noteEllipseMidpoint = geometry.height / 2f - offsetFromStaffMiddle * lineSpacing / 2f
-    val noteEllipseMidpoint = 50 / 2f - offsetFromStaffMiddle * lineSpacing / 2f
+    //val noteEllipseMidpoint = 50 / 2f - offsetFromStaffMiddle * lineSpacing / 2f
     val noteValueUnDotted = if (note.isDotted()) note.value * 2f / 3f else note.value
-    val noteHeight = lineSpacing * 2.0
+    val magic = 2.3
+    val noteHeight = lineSpacing * magic
     val noteWidth = noteHeight * 1.2
-    val xoffset = (noteWidth / 2.0) - (if (note.rotated) noteWidth else 0.0)
+    //val xoffset = (noteWidth / 2.0) - (if (note.rotated) noteWidth else 0.0)
 
     Box(
-//        modifier = Modifier
-//            //.fillMaxHeight() // Fill the max height of the parent
-//            .border(width = 2.dp, color = Color.Blue), // Add a blue border to the Box
-//        contentAlignment = Alignment.Center // This will center the CHILD content inside the Box
+
     )
     {
         if (inError) {
@@ -48,8 +46,8 @@ fun NoteView(note: Note, staff: Staff, lineSpacing:Double, inError:Boolean) { //
                 text = "X",
                 color = Color.Red,
                 fontSize = (lineSpacing * 3).sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.align(Alignment.Center).offset(x = xoffset.dp, y = noteEllipseMidpoint.dp)
+                fontWeight = FontWeight.Bold
+                //modifier = Modifier.align(Alignment.Center).offset(x = xoffset.dp, y = noteEllipseMidpoint.dp)
             )
         } else {
             if (note.staffNum == staff.staffNum) {
@@ -72,47 +70,64 @@ fun NoteView(note: Note, staff: Staff, lineSpacing:Double, inError:Boolean) { //
 //                )
 //            }
 
-            if (noteValueUnDotted in listOf(Note.VALUE_QUARTER, Note.VALUE_QUAVER, Note.VALUE_SEMIQUAVER)) {
+            if (noteValueUnDotted in listOf(Note.VALUE_QUARTER, Note.VALUE_QUAVER, Note.VALUE_SEMIQUAVER, Note.VALUE_HALF, Note.VALUE_WHOLE)) {
                 // Draw the filled ellipse
                 //Canvas(modifier = Modifier.align(Alignment.Center).offset(x = xoffset.dp, y = noteEllipseMidpoint.dp)) {
                 Canvas(
-                    modifier = Modifier.fillMaxHeight() // The Canvas also fills the maximum available size
+                    modifier = Modifier.fillMaxHeight() // Required so the size calcs below can occur
                 ) {
                     val canvasWidth = size.width
                     val canvasHeight = size.height
                     val topLeftX = (canvasWidth - noteWidth) / 2
-                    val topLeftY = (canvasHeight - noteHeight) / 2
-                    drawOval(
-                        color = note.getColor(staff),
-                        topLeft = Offset(topLeftX.toFloat(), topLeftY.toFloat()), // Use the calculated top-left position
-                        size = Size(noteWidth.toFloat(), noteHeight.toFloat())
-                    )
+                    val topLeftY = (canvasHeight - noteHeight) / 2 - (offsetFromStaffMiddle * lineSpacing * magic) / 2.0
+                    if (noteValueUnDotted in listOf(Note.VALUE_HALF, Note.VALUE_WHOLE)) {
+                        drawOval(
+                            style = Stroke(width = 4f),
+                            color = note.getColor(staff),
+                            topLeft = Offset(
+                                topLeftX.toFloat(),
+                                topLeftY.toFloat()
+                            ), // Use the calculated top-left position
+                            size = Size(noteWidth.toFloat(), noteHeight.toFloat())
+                        )
+
+                    }
+                    else {
+                        drawOval(
+                            color = note.getColor(staff),
+                            topLeft = Offset(
+                                topLeftX.toFloat(),
+                                topLeftY.toFloat()
+                            ), // Use the calculated top-left position
+                            size = Size(noteWidth.toFloat(), noteHeight.toFloat())
+                        )
+                    }
                 }
             }
 
-            if (noteValueUnDotted in listOf(Note.VALUE_HALF, Note.VALUE_WHOLE)) {
-                // Draw the outlined ellipse
-                val offset = if (note.rotated) noteWidth else 0
-                Canvas(modifier = Modifier.align(Alignment.Center).offset(x = xoffset.dp, y = noteEllipseMidpoint.dp)) {
-                    drawOval(
-                        color = note.getColor(staff),
-                        style = Stroke(width = 2f),
-                        size = Size(noteWidth.toFloat(), ((lineSpacing * 0.9f).toFloat()))
-                    )
-                }
-            }
+//            if (noteValueUnDotted in listOf(Note.VALUE_HALF, Note.VALUE_WHOLE)) {
+//                // Draw the outlined ellipse
+//                val offset = if (note.rotated) noteWidth else 0
+//                Canvas(modifier = Modifier.align(Alignment.Center).offset(x = xoffset.dp, y = noteEllipseMidpoint.dp)) {
+//                    drawOval(
+//                        color = note.getColor(staff),
+//                        style = Stroke(width = 2f),
+//                        size = Size(noteWidth.toFloat(), ((lineSpacing * 0.9f).toFloat()))
+//                    )
+//                }
+//            }
 
-            if (note.isDotted()) {
-                // Draw the dot
-                val yOffset:Double = if (offsetFromStaffMiddle % 2 == 0) lineSpacing / 3f else 0.0
-                val y = noteEllipseMidpoint - yOffset
-                Canvas(modifier = Modifier.align(Alignment.Center).offset(x = (noteWidth / 2 + noteWidth / 1.1).dp, y = y.dp)) {
-                    drawOval(
-                        color = note.getColor(staff),
-                        size = Size(noteWidth.toFloat() / 3f, noteWidth.toFloat() / 3f)
-                    )
-                }
-            }
+//            if (note.isDotted()) {
+//                // Draw the dot
+//                val yOffset:Double = if (offsetFromStaffMiddle % 2 == 0) lineSpacing / 3f else 0.0
+//                val y = noteEllipseMidpoint - yOffset
+//                Canvas(modifier = Modifier.align(Alignment.Center).offset(x = (noteWidth / 2 + noteWidth / 1.1).dp, y = y.dp)) {
+//                    drawOval(
+//                        color = note.getColor(staff),
+//                        size = Size(noteWidth.toFloat() / 3f, noteWidth.toFloat() / 3f)
+//                    )
+//                }
+//            }
 
 //            if (!note.isOnlyRhythmNote) {
 //                // Ledger lines

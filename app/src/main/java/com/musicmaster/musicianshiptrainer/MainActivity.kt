@@ -48,12 +48,17 @@ fun ScoreViewPreview() {
     score.createStaff(0, Staff(score, StaffType.Treble, 0, 5))
     score.createStaff(1, Staff(score, StaffType.Bass, 1, 5))
 
-    val timeSlice = score.createTimeSlice(1)
-    timeSlice.addNote(Note(timeSlice, 60, 1.0))
-    val timeSlice2 = score.createTimeSlice(2)
-    timeSlice2.addNote(Note(timeSlice, 64, 2.0))
-    val timeSlice3 = score.createTimeSlice(3)
-    timeSlice3.addNote(Note(timeSlice,62, 1.0))
+    var timeSlice = score.createTimeSlice()
+    timeSlice.addNote(Note(timeSlice, 71, 1.0))
+    timeSlice = score.createTimeSlice()
+    timeSlice.addNote(Note(timeSlice, 72, 2.0))
+    timeSlice = score.createTimeSlice()
+    timeSlice.addNote(Note(timeSlice,74, 1.0))
+
+    timeSlice = score.createTimeSlice()
+    timeSlice.addNote(Note(timeSlice, 67, 1.0))
+    timeSlice = score.createTimeSlice()
+    timeSlice.addNote(Note(timeSlice,69, 2.0))
     ScoreView(score)
 }
 

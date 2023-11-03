@@ -1,6 +1,7 @@
 package com.musicmaster.musicianshiptrainer.views
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,16 +18,15 @@ import com.musicmaster.musicianshiptrainer.models.TimeSlice
 @Composable
 fun ScoreEntriesView(score: Score, staff: Staff) {
     Row(
-        modifier = Modifier
-            .fillMaxHeight() // Make the Row fill the max height of parent
-            .border(width = 0.dp, color = Color.Green),
-        verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier,
+//            .size(100.dp)
+//            .fillMaxWidth(),
+//            .background(Color.Blue)
+//            .padding(end = 16.dp).
 
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .align(Alignment.Center)
-//            //.size(height.dp)
-    ) {
+        horizontalArrangement = Arrangement.spacedBy(30.dp)
+        //verticalAlignment = Alignment.CenterVertically
+     ) {
         score.scoreEntries.forEach { entry ->
             if (entry is TimeSlice) {
                 TimeSliceView(entry, staff, lineSpacing = score.staffLayoutSize.lineSpacing)

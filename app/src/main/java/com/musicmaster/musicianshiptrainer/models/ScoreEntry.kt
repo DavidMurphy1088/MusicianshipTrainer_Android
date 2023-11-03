@@ -3,7 +3,7 @@ package com.musicmaster.musicianshiptrainer.models
 import java.util.UUID
 
 open class ScoreEntry() {
-    val sequence = 0
+    var sequence = 0
     val id = UUID.randomUUID()
 
     fun getTimeSliceEntries(): List<TimeSliceEntry> {
