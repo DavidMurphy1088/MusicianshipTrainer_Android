@@ -38,7 +38,7 @@ fun NoteView(note: Note, staff: Staff, lineSpacing:Double, inError:Boolean) { //
     //val xoffset = (noteWidth / 2.0) - (if (note.rotated) noteWidth else 0.0)
 
     Box(
-
+//
     )
     {
         if (inError) {
