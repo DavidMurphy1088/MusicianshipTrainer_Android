@@ -20,11 +20,6 @@ fun ScoreView(score: Score) {
                 StaffView(score, staff)
             }
         }
-//        score.staffs.forEachIndexed { index, staff ->
-//            val s = score.staffLayoutSize.lineSpacing * 5
-//            Spacer(modifier = Modifier.height(s.dp))
-//            StaffView(score, staff)
-        //}
     }
 }
 

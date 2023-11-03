@@ -12,8 +12,9 @@ enum class StemDirection {
     // ... other values
 }
 
-class NoteStaffPlacement {
-    // Define the properties and functions according to the Swift class
+class NoteStaffPlacement(var offsetFromStaffMidline: Int, var accidental: Int? = null) {
+    init {
+    }
 }
 
 class Note(
@@ -38,10 +39,15 @@ class Note(
 
     var midiNumber:Int = midiNumber
     var isOnlyRhythmNote = false
-    var noteStaffPlacements: Array<NoteStaffPlacement?> = arrayOf(null, null)
+    var noteStaffPlacements: Array<NoteStaffPlacement> = arrayOf()
     var beamType: QuaverBeamType = QuaverBeamType.none
     var stemDirection: StemDirection = StemDirection.up
     var stemLength: Double = 0.0
     var beamEndNote: Note? = null
+    val rotated: Boolean = false
 
+    fun setNotePlacementAndAccidental(staff:Staff, barAlreadyHasNote:Boolean) {
+        val newPlacement = NoteStaffPlacement(offsetFromStaffMidline = 1, accidental = null)
+        noteStaffPlacements = noteStaffPlacements.plus(newPlacement)
+    }
 }

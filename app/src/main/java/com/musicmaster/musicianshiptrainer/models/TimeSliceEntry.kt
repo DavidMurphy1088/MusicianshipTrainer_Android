@@ -74,4 +74,8 @@ open class TimeSliceEntry(
     override fun hashCode(): Int {
         return id.hashCode()
     }
+
+//    fun getValue(): Double {
+//        return value
+//    }
 }

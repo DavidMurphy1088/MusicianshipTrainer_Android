@@ -35,14 +35,14 @@ class TimeSlice(
     fun addNote(n: Note) {
         n.timeSlice = this
         entries = entries + n
-//        score.let { score ->
-//            val barAlreadyHasNote = score.noteCountForBar(pitch = n.midiNumber) > 1
-//            score.staffs.forEach { staff ->
-//                n.setNotePlacementAndAccidental(staff, barAlreadyHasNote)
-//            }
+        score.let { score ->
+            //val barAlreadyHasNote = score.noteCountForBar(pitch = n.midiNumber) > 1
+            score.staffs.forEach { staff ->
+                n.setNotePlacementAndAccidental(staff, false)
+            }
 //            score.updateStaffs()
 //            score.addStemAndBeamCharacteristics()
-//        }
+        }
     }
 
 //    fun addRest(rest: Rest) {
