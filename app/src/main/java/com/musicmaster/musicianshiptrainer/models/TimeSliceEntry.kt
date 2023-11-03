@@ -16,15 +16,10 @@ open class TimeSliceEntry(
     var hilite by mutableStateOf(false)
     var sequence: Int by mutableStateOf(0)  // the timeslice's sequence position
     val id = UUID.randomUUID()
-    //val timeSlice = timeSlice
 
     fun isDotted(): Boolean {
         return listOf(0.75, 1.5, 3.0).contains(value)
     }
-
-//    fun getValue(): Double {
-//        return this.value
-//    }
 
     fun getColor(staff: Staff): Color {
         timeSlice.let {
@@ -37,10 +32,6 @@ open class TimeSliceEntry(
         }
         return Color.Black
     }
-
-//    fun setValue(value: Double) {
-//        this.value = value
-//    }
 
     fun getNoteValueName(): String {
         var name = if (this.isDotted()) "dotted " else ""

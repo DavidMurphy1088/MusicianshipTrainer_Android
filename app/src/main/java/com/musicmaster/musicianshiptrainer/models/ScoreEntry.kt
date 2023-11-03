@@ -6,21 +6,6 @@ open class ScoreEntry() {
     val sequence = 0
     val id = UUID.randomUUID()
 
-//    override fun equals(other: Any?): Boolean {
-//        if (this === other) return true
-//        if (javaClass != other?.javaClass) return false
-//
-//        other as ScoreEntry
-//
-//        if (id != other.id) return false
-//
-//        return true
-//    }
-//
-//    override fun hashCode(): Int {
-//        return id.hashCode()
-//    }
-
     fun getTimeSliceEntries(): List<TimeSliceEntry> {
         val result = mutableListOf<TimeSliceEntry>()
         if (this is TimeSlice) {
@@ -45,8 +30,4 @@ open class ScoreEntry() {
         return result
     }
 
-    // Comparable implementation, if needed for sorting, etc.
-//    override fun compareTo(other: ScoreEntry): Int {
-//        return this.sequence.compareTo(other.sequence)
-//    }
 }
