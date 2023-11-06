@@ -16,14 +16,20 @@ open class ScoreEntry() {
         return result
     }
 
-    fun getTimeSliceNotes(): List<Note> {
+    fun getTimeSliceNotes(staffNum: Int? = null): List<Note> {
         val result = mutableListOf<Note>()
         if (this is TimeSlice) {
-            val entries = this.entries
-            // Assuming entries is a List<TimeSliceEntry>
+            val ts: TimeSlice = this
+            val entries = ts.entries
             for (entry in entries) {
                 if (entry is Note) {
-                    result.add(entry)
+                    if (staffNum != null) {
+                        if (entry.staffNum == staffNum) {
+                            result.add(entry)
+                        }
+                    } else {
+                        result.add(entry)
+                    }
                 }
             }
         }

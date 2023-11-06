@@ -45,8 +45,10 @@ fun ScoreViewPreview() {
     var keySig = KeySignature(AccidentalType.SHARP, "")
     val key = Key(keySig, Key.KeyType.MAJOR)
     val score = Score(key, timeSignature = TimeSignature(), linesPerStaff = 5)
-    score.createStaff(0, Staff(score, StaffType.Treble, 0, 5))
-    score.createStaff(1, Staff(score, StaffType.Bass, 1, 5))
+    val s1 = Staff(score, StaffType.TREBLE, 0, 5)
+    score.createStaff(0, s1)
+    val s2 = Staff(score, StaffType.BASS, 0, 5)
+    score.createStaff(1, s2)
 
     var timeSlice = score.createTimeSlice()
     timeSlice.addNote(Note(timeSlice, 71, 1.0))

@@ -25,7 +25,7 @@ fun TimeSliceView(timeSlice: TimeSlice, staff: Staff, lineSpacing: Double) {
     Column (
         modifier = Modifier
             .fillMaxHeight()
-            .width(150.dp)
+            .width(100.dp)
             .border(4.dp, Color.Green),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally

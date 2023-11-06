@@ -19,17 +19,16 @@ import com.musicmaster.musicianshiptrainer.models.Staff
 
 @Composable
 fun StaffView(score: Score, staff: Staff) {
-    val staffLayoutSize = score.staffLayoutSize
-    val height = staffLayoutSize.lineSpacing * 12
+
+    val height = score.lineSpacing * 12
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .size(height.dp)
     ) {
         Row(
-            //modifier = Modifier.align(Alignment.Center)
         ) {
-            CleffView(staff, score.staffLayoutSize)
+            CleffView(score, staff)
             ScoreEntriesView(score, staff)
         }
 
@@ -45,7 +44,7 @@ fun StaffView(score: Score, staff: Staff) {
                         .background(Color.Black)
                 )
                 if (i < 5) {
-                    val s = score.staffLayoutSize.lineSpacing * 1.0
+                    val s = score.lineSpacing * 1.0
                     Spacer(modifier = androidx.compose.ui.Modifier.height(s.dp)) // Spacing between lines
                 }
             }

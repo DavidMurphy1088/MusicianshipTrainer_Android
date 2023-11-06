@@ -32,13 +32,12 @@ fun NoteView(note: Note, staff: Staff, lineSpacing:Double, inError:Boolean) { //
     //val noteEllipseMidpoint = geometry.height / 2f - offsetFromStaffMiddle * lineSpacing / 2f
     //val noteEllipseMidpoint = 50 / 2f - offsetFromStaffMiddle * lineSpacing / 2f
     val noteValueUnDotted = if (note.isDotted()) note.value * 2f / 3f else note.value
-    val magic = 2.3
+    val magic = 2.1
     val noteHeight = lineSpacing * magic
     val noteWidth = noteHeight * 1.2
     //val xoffset = (noteWidth / 2.0) - (if (note.rotated) noteWidth else 0.0)
 
     Box(
-//
     )
     {
         if (inError) {

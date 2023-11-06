@@ -1,34 +1,10 @@
 package com.musicmaster.musicianshiptrainer.models
 
-class Key(private var keySig: KeySignature, private var type: KeyType) {
+class Key(var keySig: KeySignature, var type: KeyType) {
 
     enum class KeyType {
         MAJOR, MINOR
     }
-
-//    fun hasNote(note: Int): Boolean {
-//        keySig.sharps.forEach { n ->
-//            if (Note.getAllOctaves(n).contains(note)) {
-//                return true
-//            }
-//        }
-//        return false
-//    }
-
-//    fun getTriadType(scaleOffset: Int): Chord.ChordType {
-//        return when (type) {
-//            KeyType.MAJOR -> when (scaleOffset) {
-//                0, 5, 7 -> Chord.ChordType.MAJOR
-//                11 -> Chord.ChordType.DIMINISHED
-//                else -> Chord.ChordType.MINOR
-//            }
-//            KeyType.MINOR -> when (scaleOffset) {
-//                0, 5, 7 -> Chord.ChordType.MINOR
-//                2 -> Chord.ChordType.DIMINISHED
-//                else -> Chord.ChordType.MAJOR
-//            }
-//        }
-//    }
 
     fun getKeyName(): String {
         var desc = ""
@@ -62,6 +38,16 @@ class Key(private var keySig: KeySignature, private var type: KeyType) {
         return "someNotes"
     }
 
+    fun hasNote(note: Int): Boolean {
+        keySig.sharps.forEach { n ->
+            val octaves = Note.getAllOctaves(n)
+            if (note in octaves) {
+                return true
+            }
+        }
+        return false
+    }
+
     // For equality check, override equals and hashCode methods.
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -76,14 +62,14 @@ class Key(private var keySig: KeySignature, private var type: KeyType) {
         return true
     }
 
-    override fun hashCode(): Int {
-        var result = type.hashCode()
-        result = 31 * result + keySig.accidentalCount.hashCode()
-        return result
-    }
-
-    companion object {
-        // Companion object for static content, like Swift's static funcs
-        // Any static methods would go here.
-    }
+//    override fun hashCode(): Int {
+//        var result = type.hashCode()
+//        result = 31 * result + keySig.accidentalCount.hashCode()
+//        return result
+//    }
+//
+//    companion object {
+//        // Companion object for static content, like Swift's static funcs
+//        // Any static methods would go here.
+//    }
 }

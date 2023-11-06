@@ -1,20 +1,14 @@
 package com.musicmaster.musicianshiptrainer.models
 
-enum class QuaverBeamType {
-    // Define the enum values according to the Swift enum
-    none, // Example value
-    // ... other values
-}
-
 enum class StemDirection {
-    // Define the enum values according to the Swift enum
-    up, // Example value
-    // ... other values
+    UP,
+    DOWN
 }
 
-class NoteStaffPlacement(var offsetFromStaffMidline: Int, var accidental: Int? = null) {
-    init {
-    }
+class NoteStaffPlacement(
+    var offsetFromStaffMidline: Int,
+    var accidental: Int? = null
+) {
 }
 
 class Note(
@@ -22,8 +16,6 @@ class Note(
     midiNumber: Int,
     value: Double,
     staffNum: Int = 0, // Providing a default value similar to TimeSliceEntry, which can be overridden
-    accidental: Int? = null,
-    rotated: Boolean = false
 ) : TimeSliceEntry(timeSlice, value, staffNum) {
 
     companion object {
@@ -35,35 +27,69 @@ class Note(
         const val VALUE_QUARTER = 1.0
         const val VALUE_HALF = 2.0
         const val VALUE_WHOLE = 4.0
+
+        fun getAllOctaves(note: Int): List<Int> {
+            val notes = mutableListOf<Int>()
+            for (n in 0..88) {
+                if ((note >= n && (note - n) % 12 == 0) || (note < n && (n - note) % 12 == 0)) {
+                    notes.add(n)
+                }
+            }
+            return notes
+        }
     }
 
     var midiNumber:Int = midiNumber
     var isOnlyRhythmNote = false
-    var noteStaffPlacements: Array<NoteStaffPlacement> = arrayOf()
-    var beamType: QuaverBeamType = QuaverBeamType.none
-    var stemDirection: StemDirection = StemDirection.up
+    //var noteStaffPlacements: Array<NoteStaffPlacement> = arrayOf()
+    var noteStaffPlacements: MutableList<NoteStaffPlacement> = mutableListOf()
+
+    var beamType: QuaverBeamType = QuaverBeamType.NONE
+    var stemDirection: StemDirection = StemDirection.UP
     var stemLength: Double = 0.0
     var beamEndNote: Note? = null
     val rotated: Boolean = false
+    val accidental: Int? = null
 
     fun setNotePlacementAndAccidental(staff:Staff, barAlreadyHasNote:Boolean) {
-        val newPlacement = NoteStaffPlacement(offsetFromStaffMidline = 1, accidental = null)
-        if (midiNumber > 1) {
-            newPlacement.offsetFromStaffMidline = 1
+        val defaultNoteData = staff.getNoteViewPlacement(note = this)
+        var offsetFromMiddle = defaultNoteData.offsetFromStaffMidline
+        var offsetAccidental: Int? = null
+
+        if (this.isOnlyRhythmNote) {
+            offsetFromMiddle = 0
         }
-        else {
-            newPlacement.offsetFromStaffMidline = 0
+        this.accidental?.let { writtenAccidental ->
+            // Content provided a specific accidental
+            offsetAccidental = writtenAccidental
+            if (writtenAccidental != defaultNoteData.accidental) {
+                val defaultNoteStaffPlacement = staff.noteStaffPlacement[this.midiNumber]
+                val targetOffsetIndex = this.midiNumber - writtenAccidental
+                val targetNoteStaffPlacement = staff.noteStaffPlacement[targetOffsetIndex]
+                val adjustOffset = defaultNoteStaffPlacement.offsetFromStaffMidline - targetNoteStaffPlacement.offsetFromStaffMidline
+                offsetFromMiddle -= adjustOffset
+            }
+        } ?: run {
+            // Determine if the note's accidental is implied by the key signature
+            // Or a note has to have a natural accidental to offset the key signature
+            val keySignatureHasNote = staff.score.key.hasNote(note = this.midiNumber)
+            defaultNoteData.accidental?.let { defaultAccidental ->
+                if (!keySignatureHasNote) {
+                    if (!barAlreadyHasNote) {
+                        offsetAccidental = defaultAccidental
+                    }
+                }
+            } ?: run {
+                if (staff.score.key.hasNote(note = this.midiNumber + 1)) {
+                    if (!barAlreadyHasNote) {
+                        offsetAccidental = 0
+                    }
+                }
+            }
         }
-        var offset = 0
-        when (midiNumber) {
-            67 -> offset = -2
-            69 -> offset = -1
-            71 -> offset = 0
-            72 -> offset = 1
-            74 -> offset = 3
-            else -> offset = 0
-        }
-        newPlacement.offsetFromStaffMidline = offset
-        noteStaffPlacements = noteStaffPlacements.plus(newPlacement)
+
+        val placement = NoteStaffPlacement(offsetFromMiddle, accidental = offsetAccidental)
+        noteStaffPlacements.add(placement)
     }
+
 }

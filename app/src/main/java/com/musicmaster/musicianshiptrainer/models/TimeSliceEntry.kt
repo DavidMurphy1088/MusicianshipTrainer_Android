@@ -21,6 +21,10 @@ open class TimeSliceEntry(
         return listOf(0.75, 1.5, 3.0).contains(value)
     }
 
+//    fun getValue(): Double {
+//        return value
+//    }
+
     fun getColor(staff: Staff): Color {
         timeSlice.let {
             return when (it.statusTag) {

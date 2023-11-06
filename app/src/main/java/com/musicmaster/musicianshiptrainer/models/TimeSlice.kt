@@ -30,19 +30,22 @@ class TimeSlice(
     var beatNumber by mutableStateOf(0.0) // the beat in the bar that the timeslice is at
     var tapDuration by mutableStateOf(0.0) // Used when recording a tap sequence into a score
 
-    //fun getValue(): Double = entries.firstOrNull()?.getValue() ?: 0.0
+    fun getValue(): Double {
+        if (entries.isNotEmpty()) {
+            return entries[0].value
+        }
+        return 0.0
+    }
 
     fun addNote(n: Note) {
         n.timeSlice = this
         entries = entries + n
-        score.let { score ->
             //val barAlreadyHasNote = score.noteCountForBar(pitch = n.midiNumber) > 1
-            score.staffs.forEach { staff ->
-                n.setNotePlacementAndAccidental(staff, false)
-            }
-//            score.updateStaffs()
-//            score.addStemAndBeamCharacteristics()
+        score.staffs.forEach { staff ->
+            n.setNotePlacementAndAccidental(staff, false)
         }
+//            score.updateStaffs()
+            score.addStemAndBeamCharacteristics()
     }
 
 //    fun addRest(rest: Rest) {

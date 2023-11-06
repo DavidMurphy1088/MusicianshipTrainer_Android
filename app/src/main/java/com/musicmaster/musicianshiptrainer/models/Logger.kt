@@ -9,10 +9,9 @@ import java.util.UUID
 data class LogMessage(val id: UUID = UUID.randomUUID(), val number: Int, val message: String)
 
 class Logger : ViewModel() {
-    // Singleton pattern in Kotlin
+
     companion object {
         fun error(s: String) {
-
         }
         val instance = Logger()
     }
