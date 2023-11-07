@@ -44,7 +44,7 @@ fun StaffView(score: Score, staff: Staff) {
                         .background(Color.Black)
                 )
                 if (i < 5) {
-                    val s = score.lineSpacing * 1.0
+                    val s = score.lineSpacing-2
                     Spacer(modifier = androidx.compose.ui.Modifier.height(s.dp)) // Spacing between lines
                 }
             }

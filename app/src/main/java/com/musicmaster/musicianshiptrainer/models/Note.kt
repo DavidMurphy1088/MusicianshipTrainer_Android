@@ -92,4 +92,45 @@ class Note(
         noteStaffPlacements.add(placement)
     }
 
+    // Finds the first note for this quaver group
+    fun getBeamStartNote(score: Score, np: NoteLayoutPositions): Note {
+        val endNote = this
+        if (endNote.beamType != QuaverBeamType.END) {
+            return endNote
+        }
+
+        var result: Note? = null
+        var idx = score.scoreEntries.size - 1
+        var foundEndNote = false
+
+        while (idx >= 0) {
+            val ts = score.scoreEntries[idx]
+            when (ts) {
+                is TimeSlice -> {
+                    val notes = ts.getTimeSliceNotes()
+                    if (notes.isNotEmpty()) {
+                        val note = notes[0]
+                        if (note.sequence == endNote.sequence) {
+                            foundEndNote = true
+                        } else if (foundEndNote) {
+                            when (note.beamType) {
+                                QuaverBeamType.START -> {
+                                    result = note
+                                    break
+                                }
+                                QuaverBeamType.END -> if (note.value == Note.VALUE_QUAVER) break
+                                else -> if (note.value != Note.VALUE_QUAVER) break
+                            }
+                        }
+                    }
+                }
+                is BarLine -> if (foundEndNote) break
+            }
+
+            idx--
+        }
+
+        return result ?: endNote
+    }
+
 }

@@ -36,10 +36,16 @@ class NoteLayoutPositions(val id: Int) {
     }
 }
 class NoteOffsetsInStaffByKey {
+    //Defines which staff line (and accidental) is used to show a midi pitch in each key,
+    //assuming key signature is not taken in account (it will be later in the note display code...)
+    //offset, sign. sign = ' ' or -1=flat, 1=sharp (=natural,????)
+    //modified July23 - use -1 for flat, 0 for natural, 1 for sharp. Done onlu so far for C and G
+    //horizontal is the various keys
+    //vertical starts at showing how C is shown in that key, then c#, d, d# etc up the scale
+    //31Aug2023 - done for C, G, D, E
     private var noteOffsetByKey: MutableList<String> = mutableListOf()
 
     init {
-        noteOffsetByKey.add("0     0    0    0    0    0    0,1   0     0    0,1  0    0") // C
         noteOffsetByKey.add("0     0    0    0    0    0    0,1   0     0    0,1  0    0")    //C
         noteOffsetByKey.add("0,1   1    0,1  1,0  0,1  1,0  1     0,1   1    0    1,0  0,1")  //C#, D♭
         noteOffsetByKey.add("1     1,1  1    1    1    1    1,1   1     1,1  1    1    1")    //D
@@ -87,11 +93,11 @@ class Staff(val score: Score, val type: StaffType, val staffNum:Int, val linesIn
     var noteLayoutPositions = NoteLayoutPositions(id = 0)
     var noteStaffPlacement = mutableListOf<NoteStaffPlacement>()
     var noteOffsetsInStaffByKey = NoteOffsetsInStaffByKey()
+    var middleNoteValue = if (type == StaffType.TREBLE) 71 else Note.MIDDLE_C - Note.OCTAVE + 2
 
     init {
         var lowestNoteValue = 20 // MIDI C0
         var highestNoteValue = 107 // MIDI B7
-        var middleNoteValue = if (type == StaffType.TREBLE) 71 else Note.MIDDLE_C - Note.OCTAVE + 2
 
 // Determine the staff placement for each note pitch
         var keyNumber = when (score.key.keySig.accidentalCount) {
@@ -106,7 +112,7 @@ class Staff(val score: Score, val type: StaffType, val staffNum:Int, val linesIn
         //val noteStaffPlacement = mutableListOf<NoteStaffPlacement>()
 
         for (noteValue in 0..highestNoteValue) {
-            if (noteValue == 72) {
+            if (noteValue == 74) {
                 println("=========")
             }
             var placement = NoteStaffPlacement(0)
@@ -143,6 +149,10 @@ class Staff(val score: Score, val type: StaffType, val staffNum:Int, val linesIn
 
             placement.accidental = noteOffset.accidental
             noteStaffPlacement[noteValue] = placement
+            if (noteValue == 74) {
+                println("=========")
+            }
+
         }
     }
 

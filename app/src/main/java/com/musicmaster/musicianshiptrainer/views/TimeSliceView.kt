@@ -1,14 +1,11 @@
 package com.musicmaster.musicianshiptrainer.views
 
-import android.provider.ContactsContract
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,10 +21,9 @@ import com.musicmaster.musicianshiptrainer.models.TimeSlice
 fun TimeSliceView(timeSlice: TimeSlice, staff: Staff, lineSpacing: Double) {
     Column (
         modifier = Modifier
-            .fillMaxHeight()
-            .width(100.dp)
-            .border(4.dp, Color.Green),
-        verticalArrangement = Arrangement.Center,
+            .fillMaxSize(),
+            //.border(1.dp, Color.Green),
+        //verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         timeSlice.entries.forEach { entry ->
@@ -40,3 +36,4 @@ fun TimeSliceView(timeSlice: TimeSlice, staff: Staff, lineSpacing: Double) {
         }
     }
 }
+

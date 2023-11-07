@@ -47,20 +47,30 @@ fun ScoreViewPreview() {
     val score = Score(key, timeSignature = TimeSignature(), linesPerStaff = 5)
     val s1 = Staff(score, StaffType.TREBLE, 0, 5)
     score.createStaff(0, s1)
-    val s2 = Staff(score, StaffType.BASS, 0, 5)
-    score.createStaff(1, s2)
+//    val s2 = Staff(score, StaffType.BASS, 0, 5)
+//    score.createStaff(1, s2)
 
-    var timeSlice = score.createTimeSlice()
-    timeSlice.addNote(Note(timeSlice, 71, 1.0))
-    timeSlice = score.createTimeSlice()
-    timeSlice.addNote(Note(timeSlice, 72, 2.0))
-    timeSlice = score.createTimeSlice()
-    timeSlice.addNote(Note(timeSlice,74, 1.0))
+//    var timeSlice = score.createTimeSlice()
+//    timeSlice.addNote(Note(timeSlice, 71, 1.0))
+//    timeSlice = score.createTimeSlice()
+//    timeSlice.addNote(Note(timeSlice, 72, 2.0))
+//    timeSlice = score.createTimeSlice()
+//    timeSlice.addNote(Note(timeSlice,74, 1.0))
+//    timeSlice = score.createTimeSlice()
+//    timeSlice.addNote(Note(timeSlice,76, 1.0))
+//
+//    timeSlice = score.createTimeSlice()
+//    timeSlice.addNote(Note(timeSlice, 67, 1.0))
+//    timeSlice = score.createTimeSlice()
+//    timeSlice.addNote(Note(timeSlice,69, 2.0))
 
-    timeSlice = score.createTimeSlice()
-    timeSlice.addNote(Note(timeSlice, 67, 1.0))
-    timeSlice = score.createTimeSlice()
-    timeSlice.addNote(Note(timeSlice,69, 2.0))
+    val numbers = arrayOf(62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 79)
+    //val numbers = arrayOf(74)
+
+    for (number in numbers) {
+        val timeSlice = score.createTimeSlice()
+        timeSlice.addNote(Note(timeSlice,number, 1.0))
+    }
     ScoreView(score)
 }
 
