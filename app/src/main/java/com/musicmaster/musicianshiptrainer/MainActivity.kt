@@ -65,12 +65,21 @@ fun ScoreViewPreview() {
 //    timeSlice.addNote(Note(timeSlice,69, 2.0))
 
     val numbers = arrayOf(62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 79)
-    //val numbers = arrayOf(74)
+    //val numbers = arrayOf(71)
 
-    for (number in numbers) {
+//    for (number in numbers) {
+//        val timeSlice = score.createTimeSlice()
+//        timeSlice.addNote(Note(timeSlice,number, 1.0))
+//    }
+
+    numbers.forEachIndexed { index, midi ->
         val timeSlice = score.createTimeSlice()
-        timeSlice.addNote(Note(timeSlice,number, 1.0))
+        timeSlice.addNote(Note(timeSlice,midi, 1.0))
+        if (index % 3 == 2) {
+            score.addBarLine()
+        }
     }
+
     ScoreView(score)
 }
 

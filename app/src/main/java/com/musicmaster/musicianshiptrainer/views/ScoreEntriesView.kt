@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.musicmaster.musicianshiptrainer.models.BarLine
 import com.musicmaster.musicianshiptrainer.models.Score
 import com.musicmaster.musicianshiptrainer.models.Staff
 import com.musicmaster.musicianshiptrainer.models.TimeSlice
@@ -33,8 +34,9 @@ fun ScoreEntriesView(score: Score, staff: Staff) {
                     TimeSliceView(entry, staff, lineSpacing = score.lineSpacing)
                     StemView(score, staff, staff.noteLayoutPositions, entry.getTimeSliceNotes())
                 }
-            } else {
-                // Handle non-TimeSlice entries here
+            }
+            if (entry is BarLine) {
+                BarLineView(score = score, entry = entry, staff = staff)
             }
         }
     }

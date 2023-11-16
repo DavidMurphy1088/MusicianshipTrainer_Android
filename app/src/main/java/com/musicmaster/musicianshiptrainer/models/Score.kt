@@ -41,6 +41,12 @@ class Score(
         return timeSlice
     }
 
+    fun addBarLine() {
+        val barLine = BarLine()
+        barLine.sequence = scoreEntries.size
+        scoreEntries.add(barLine)
+    }
+
     fun getStaffHeight(score: Score): Double {
         // The following line assumes there's a getTotalStaffLineCount() function in your Score class.
         val height = (score.totalStaffLineCount + 2) * lineSpacing
