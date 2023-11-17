@@ -14,5 +14,5 @@
 .cxx
 local.properties
 
-/res/values/GoogleAPI.xml
 
+app/src/main/res/values/GoogleAPI.xml
