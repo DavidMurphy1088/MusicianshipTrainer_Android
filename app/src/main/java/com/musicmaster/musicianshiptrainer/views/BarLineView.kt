@@ -19,18 +19,20 @@ import com.musicmaster.musicianshiptrainer.models.Staff
 @Composable
 fun BarLineView(score: Score, entry: ScoreEntry, staff: Staff) {
     val lineSpacing = score.lineSpacing
-    val rectangleWidth = 1.dp
+    val rectangleWidth = 2.dp
     val rectangleHeight = (4 * lineSpacing).dp
 
     Box(modifier = Modifier
-        .width((lineSpacing * 1.1).dp)
+        .width((lineSpacing * 1.2).dp)
         .fillMaxHeight()
         .wrapContentSize(Alignment.Center)
     ) {
         Canvas(modifier = Modifier.size(rectangleWidth, rectangleHeight)) {
             drawRect(
                 color = Color.Black,
-                size = Size(rectangleWidth.toPx(), rectangleHeight.toPx())
+                size = Size(rectangleWidth.toPx(), rectangleHeight.toPx()
+                        //style = Stroke(width = 3.0f)
+                )
             )
         }
     }

@@ -48,10 +48,10 @@ class TimeSlice(
             score.addStemAndBeamCharacteristics()
     }
 
-//    fun addRest(rest: Rest) {
-//        entries = entries + rest
-//        score?.updateStaffsAndCharacteristics()
-//    }
+    fun addRest(rest: Rest) {
+        entries = entries + rest
+        score?.addStemAndBeamCharacteristics()
+    }
 
 //    fun addChord(c: Chord) {
 //        c.getNotes().forEach(this::addNote)
@@ -62,6 +62,7 @@ class TimeSlice(
         tagHigh = high
         tagLow = low
     }
+
 
 //    private fun Score.updateStaffsAndCharacteristics() {
 //        updateStaffs()

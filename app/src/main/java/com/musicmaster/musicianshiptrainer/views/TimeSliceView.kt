@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.musicmaster.musicianshiptrainer.models.Note
+import com.musicmaster.musicianshiptrainer.models.Rest
 import com.musicmaster.musicianshiptrainer.models.Staff
 import com.musicmaster.musicianshiptrainer.models.TimeSlice
 
@@ -31,6 +32,9 @@ fun TimeSliceView(timeSlice: TimeSlice, staff: Staff, lineSpacing: Double) {
             ) {
                 if (entry is Note) {
                     NoteView(note = entry, staff = staff, lineSpacing = lineSpacing, false)
+                }
+                if (entry is Rest) {
+                    RestView(staff = staff, entry, lineSpacing = lineSpacing)
                 }
             }
         }

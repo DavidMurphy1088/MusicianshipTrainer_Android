@@ -13,13 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.musicmaster.musicianshiptrainer.models.Score
 import com.musicmaster.musicianshiptrainer.models.Staff
 
 @Composable
 fun StaffView(score: Score, staff: Staff) {
-
+    val context = LocalContext.current
     val height = score.lineSpacing * 12
     Box(
         modifier = Modifier

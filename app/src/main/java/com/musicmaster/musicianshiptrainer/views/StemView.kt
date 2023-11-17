@@ -20,7 +20,6 @@ import com.musicmaster.musicianshiptrainer.models.Score
 import com.musicmaster.musicianshiptrainer.models.Staff
 import com.musicmaster.musicianshiptrainer.models.StemDirection
 
-
 fun Context.dpToPx(dp: Double): Double {
     return dp * resources.displayMetrics.density
 }
